@@ -15,7 +15,7 @@ It is for developers, designers, product engineers, and teams that want Codex to
 
 ### Option A: GitHub Marketplace Source
 
-After this repository is published, add the marketplace source:
+Add the marketplace source:
 
 ```bash
 codex plugin marketplace add yappologistic/frontend-GOD

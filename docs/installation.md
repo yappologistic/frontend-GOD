@@ -2,7 +2,7 @@
 
 # Option A: Install From GitHub Marketplace Source
 
-After this repository is published, add it as a Codex plugin marketplace:
+Add it as a Codex plugin marketplace:
 
 ```bash
 codex plugin marketplace add yappologistic/frontend-GOD
