@@ -124,7 +124,19 @@ If browser, preview, screenshot, or Playwright tools are available, run the app,
 
 If visual inspection is not available, state that the review was code-based only.
 
-## 10. QA
+## 10. Mandatory Visual Revision Loop
+
+After the first implementation pass:
+
+1. Capture or inspect at mobile and desktop widths.
+2. Identify the three weakest visual or UX issues.
+3. Patch those issues before finalizing.
+4. Re-check the affected view or code path.
+5. Only then report completion.
+
+If browser inspection is impossible, perform a code-based critique using the same loop and state that visual inspection was unavailable.
+
+## 11. QA
 
 Run available lint, typecheck, tests, build, component/story checks, this skill's audit scripts, and browser/screenshot inspection when appropriate.
 
@@ -166,6 +178,22 @@ Before finalizing a visually important frontend task, answer internally:
 5. Would this still work if all icons, gradients, and decorative effects were removed?
 
 If the answer is weak, revise before final response.
+
+# No-Ship Quality Gates
+
+Do not finalize visually important frontend work if any of these are true:
+
+- The UI was not inspected in a browser or screenshot tool when available.
+- Mobile and desktop layouts were not checked.
+- Primary action, user goal, or main content hierarchy is unclear.
+- Loading, empty, error, disabled, hover, focus-visible, and success states are missing where relevant.
+- Text overflows, overlaps, truncates badly, or depends on one ideal viewport.
+- Copy could describe any SaaS product.
+- The screen is mostly generic cards, gradients, icons, or component-library defaults.
+- Colors, spacing, radius, and shadows are scattered instead of tokenized.
+- Accessibility basics are missing: labels, focus states, keyboard flow, contrast, or accessible names.
+
+When a gate fails, revise the UI before final response. If a gate cannot be verified, state the limitation and avoid claiming production-ready completion.
 
 # Reference Router
 

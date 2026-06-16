@@ -36,6 +36,8 @@ skills/frontend-design-director/scripts/
 
 They must stay dependency-free and should not modify user projects.
 
+The design audit script is intentionally heuristic. Add checks only when they catch recurring frontend quality failures, such as vague copy, overused cards, missing focus styling signals, missing reduced-motion handling, token drift, or mobile layout risks. Keep warnings actionable and avoid checks that would flag the audit scripts themselves.
+
 # Validation
 
 Run:

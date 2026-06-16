@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Add no-ship quality gates and a mandatory visual revision loop to the frontend design skill.
+- Add scored QA pass criteria for visually important frontend work.
+- Expand bad-vs-better examples for dashboards, forms, settings, landing pages, pricing, data tables, and mobile layouts.
+- Expand the design audit script with additional generic-AI UI and UX heuristic warnings.
+- Update docs to describe the stricter quality gates and audit behavior.
+
 ## 0.1.1
 
 - Fix marketplace installation by adding the canonical `plugins/frontend-design-director/` package path.

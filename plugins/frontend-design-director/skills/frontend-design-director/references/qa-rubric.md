@@ -2,6 +2,18 @@
 
 Before finalizing frontend UI, check the work against this rubric.
 
+# Pass Criteria
+
+Score each category from 0-2:
+
+- 0: missing or poor
+- 1: acceptable but weak
+- 2: production-quality
+
+Categories: Product Fit, Hierarchy, States, Accessibility, Responsive, Visual Craft, Performance, and Verification.
+
+Do not finalize below 12/16. Do not finalize with a 0 in Accessibility, Responsive, Hierarchy, or Verification.
+
 # Product Fit
 
 - The screen has a clear user, task, and primary action.

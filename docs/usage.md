@@ -67,6 +67,10 @@ $frontend-design-director Fix the table overflow, hover-only actions, missing ke
 - design-system consistency
 - practical visual QA
 
+# Quality Gates
+
+For visually important frontend work, the skill should not treat the job as complete until it has checked mobile and desktop behavior, inspected or critiqued the UI, revised the weakest issues, and passed the QA rubric. The rubric scores Product Fit, Hierarchy, States, Accessibility, Responsive, Visual Craft, Performance, and Verification from 0-2, with a minimum passing score of 12/16.
+
 # What The Skill Avoids
 
 - generic gradient SaaS templates

@@ -9,6 +9,7 @@ It is for developers, designers, product engineers, and teams that want Codex to
 - Guides Codex through build, redesign, review, design-system, and UX-debugging modes.
 - Pushes frontend work toward clear hierarchy, accessibility, responsive behavior, strong states, and maintainable implementation.
 - Avoids generic AI-template visuals such as vague SaaS copy, default gradients, identical cards, low-contrast text, and missing loading/empty/error states.
+- Adds no-ship gates, a mandatory visual revision loop, and a scored QA rubric for visually important frontend work.
 - Bundles practical reference playbooks and dependency-free audit scripts.
 
 ## Installation
@@ -114,6 +115,8 @@ npm run audit:design -- /path/to/frontend
 npm run audit:a11y -- /path/to/frontend
 npm run audit:tokens -- /path/to/frontend
 ```
+
+The audit scripts are heuristic review prompts, not proof of quality. The design audit flags common AI-UI slop such as vague CTA copy, repeated large-radius cards, heavy shadows, gradient overuse, missing focus-style signals, missing reduced-motion accommodations, viewport-height risks, muted text overuse, and repeated default containers.
 
 ## Contributing
 
