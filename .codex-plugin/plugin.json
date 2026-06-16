@@ -1,0 +1,40 @@
+{
+  "name": "frontend-design-director",
+  "version": "0.1.0",
+  "description": "A Codex skill for building, redesigning, reviewing, and QA'ing polished, accessible, responsive, non-generic frontend UI/UX.",
+  "author": {
+    "name": "yappologistic",
+    "url": "https://github.com/yappologistic"
+  },
+  "repository": "https://github.com/yappologistic/frontend-GOD",
+  "homepage": "https://github.com/yappologistic/frontend-GOD#readme",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "codex-skill",
+    "codex-plugin",
+    "frontend",
+    "design",
+    "ui",
+    "ux",
+    "accessibility",
+    "responsive-design",
+    "design-system"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Frontend Design Director",
+    "shortDescription": "A Codex skill for building, redesigning, reviewing, and QA'ing polished, accessible, responsive, non-generic frontend UI/UX.",
+    "longDescription": "Frontend Design Director packages a Codex skill that pushes frontend work toward production-quality UI/UX: stronger hierarchy, accessibility, responsive behavior, design-system consistency, product-specific visual direction, and visual QA discipline.",
+    "developerName": "yappologistic",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/yappologistic/frontend-GOD",
+    "defaultPrompt": [
+      "$frontend-design-director Redesign this dashboard with better hierarchy, responsive behavior, accessibility, and product-specific polish.",
+      "$frontend-design-director Review this frontend for UX, accessibility, responsiveness, design-system consistency, and AI-design anti-patterns.",
+      "$frontend-design-director Build a production-quality settings page using the existing project stack and design conventions."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

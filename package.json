@@ -1,0 +1,27 @@
+{
+  "name": "frontend-design-director",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Repository maintenance scripts for the Frontend Design Director Codex plugin.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-plugin.mjs",
+    "check:scripts": "node --check skills/frontend-design-director/scripts/design-audit.mjs && node --check skills/frontend-design-director/scripts/a11y-static-check.mjs && node --check skills/frontend-design-director/scripts/token-audit.mjs && node --check scripts/validate-plugin.mjs",
+    "audit:design": "node skills/frontend-design-director/scripts/design-audit.mjs",
+    "audit:a11y": "node skills/frontend-design-director/scripts/a11y-static-check.mjs",
+    "audit:tokens": "node skills/frontend-design-director/scripts/token-audit.mjs"
+  },
+  "keywords": [
+    "codex",
+    "codex-skill",
+    "codex-plugin",
+    "frontend",
+    "design",
+    "ui",
+    "ux",
+    "accessibility",
+    "responsive-design",
+    "design-system"
+  ]
+}
