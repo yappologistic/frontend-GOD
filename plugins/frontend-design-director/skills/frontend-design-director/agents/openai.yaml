@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design Director"
+  short_description: "Polish and QA accessible frontend UI"
+  default_prompt: "Use $frontend-design-director to build, redesign, review, polish, or QA frontend UI with strong hierarchy, accessibility, responsiveness, and product-specific visual direction."

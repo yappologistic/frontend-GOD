@@ -80,10 +80,16 @@ const expectedDocs = [
 ];
 
 let manifest;
+let packagedManifest;
 
 check('plugin manifest exists and parses', () => {
   manifest = readJson('.codex-plugin/plugin.json');
   return '.codex-plugin/plugin.json';
+});
+
+check('packaged plugin manifest exists and parses', () => {
+  packagedManifest = readJson('plugins/frontend-design-director/.codex-plugin/plugin.json');
+  return 'plugins/frontend-design-director/.codex-plugin/plugin.json';
 });
 
 check('plugin manifest required fields', () => {
@@ -94,6 +100,15 @@ check('plugin manifest required fields', () => {
     throw new Error(`manifest version is not semver-like: ${manifest.version}`);
   }
   return `${manifest.name}@${manifest.version}`;
+});
+
+check('packaged manifest matches root manifest', () => {
+  for (const field of ['name', 'version', 'description', 'skills']) {
+    if (packagedManifest?.[field] !== manifest?.[field]) {
+      throw new Error(`packaged manifest ${field} does not match root manifest`);
+    }
+  }
+  return `${packagedManifest.name}@${packagedManifest.version}`;
 });
 
 check('manifest skills path exists', () => {
@@ -132,6 +147,10 @@ check('marketplace file exists and parses', () => {
   const entry = marketplace.plugins.find((plugin) => plugin.name === 'frontend-design-director');
   if (!entry) throw new Error('marketplace missing frontend-design-director entry');
   if (!entry.source?.path) throw new Error('marketplace entry missing source.path');
+  if (entry.source.path !== './plugins/frontend-design-director') {
+    throw new Error(`marketplace source.path should be ./plugins/frontend-design-director, got ${entry.source.path}`);
+  }
+  mustExist('plugins/frontend-design-director/.codex-plugin/plugin.json');
   return '.agents/plugins/marketplace.json';
 });
 

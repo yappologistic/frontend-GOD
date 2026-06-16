@@ -11,13 +11,13 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin the initial stable release:
 
 ```bash
-codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.0
+codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.1
 ```
 
-Use sparse marketplace installation if your Codex build needs the marketplace folder explicitly:
+Use sparse marketplace installation if your Codex build needs explicit paths. Include both the marketplace file and plugin package:
 
 ```bash
-codex plugin marketplace add https://github.com/yappologistic/frontend-GOD.git --sparse .agents/plugins
+codex plugin marketplace add https://github.com/yappologistic/frontend-GOD.git --sparse .agents/plugins --sparse plugins/frontend-design-director
 ```
 
 Restart Codex after adding or updating a marketplace if the plugin does not appear immediately.

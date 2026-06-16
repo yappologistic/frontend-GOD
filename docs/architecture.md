@@ -2,11 +2,15 @@
 
 # Plugin Wrapper
 
-`.codex-plugin/plugin.json` defines plugin metadata, public presentation fields, and the relative `skills` directory used by Codex.
+`plugins/frontend-design-director/.codex-plugin/plugin.json` is the installable plugin manifest used by the marketplace entry.
+
+The root `.codex-plugin/plugin.json` mirrors the same metadata for repository-level validation and direct local experiments.
 
 # Bundled Skill
 
-`skills/frontend-design-director/` contains the actual Codex skill. It can also be copied directly into a user or repo skill directory for skill-only usage.
+`plugins/frontend-design-director/skills/frontend-design-director/` is the skill bundled with the installable plugin.
+
+The root `skills/frontend-design-director/` mirrors the same skill for manual skill-only installation and easier editing.
 
 # References
 
@@ -18,7 +22,7 @@
 
 # Marketplace File
 
-`.agents/plugins/marketplace.json` provides a repo-local marketplace entry for installing or testing this plugin through Codex marketplace workflows.
+`.agents/plugins/marketplace.json` provides a repo-local marketplace entry for installing or testing this plugin through Codex marketplace workflows. It points at `./plugins/frontend-design-director`, which is the canonical plugin package path Codex expects.
 
 # Why Package As A Plugin
 

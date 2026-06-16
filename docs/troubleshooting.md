@@ -14,6 +14,14 @@ codex plugin marketplace list
 
 Confirm the marketplace was added and points to this repository.
 
+Then check whether the plugin is listed:
+
+```bash
+codex plugin list
+```
+
+The marketplace entry should point to `./plugins/frontend-design-director`. If it points to the repository root or `../..`, Codex may ignore it.
+
 # Marketplace Not Found
 
 Re-add the marketplace:

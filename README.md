@@ -24,13 +24,13 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin the initial stable release:
 
 ```bash
-codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.0
+codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.1
 ```
 
-If your Codex version requires sparse marketplace installation:
+If your Codex version requires sparse marketplace installation, include both the marketplace file and plugin package:
 
 ```bash
-codex plugin marketplace add https://github.com/yappologistic/frontend-GOD.git --sparse .agents/plugins
+codex plugin marketplace add https://github.com/yappologistic/frontend-GOD.git --sparse .agents/plugins --sparse plugins/frontend-design-director
 ```
 
 Restart Codex after adding or updating a marketplace if the plugin does not appear immediately.
@@ -87,6 +87,7 @@ $frontend-design-director Build a production-quality settings page using the exi
 ```text
 .codex-plugin/plugin.json
 .agents/plugins/marketplace.json
+plugins/frontend-design-director/
 skills/frontend-design-director/
 docs/
 scripts/validate-plugin.mjs

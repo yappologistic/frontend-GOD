@@ -2,13 +2,19 @@
 
 # Editing The Skill
 
-The bundled skill lives in:
+The editable skill mirror lives in:
 
 ```text
 skills/frontend-design-director/
 ```
 
 Edit `SKILL.md` for core operational behavior. Keep it concise and action-oriented.
+
+After editing the root skill mirror, sync it into the installable plugin package:
+
+```text
+plugins/frontend-design-director/skills/frontend-design-director/
+```
 
 # References
 

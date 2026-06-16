@@ -8,7 +8,7 @@
       "name": "frontend-design-director",
       "source": {
         "source": "local",
-        "path": "../.."
+        "path": "./plugins/frontend-design-director"
       },
       "policy": {
         "installation": "AVAILABLE",
