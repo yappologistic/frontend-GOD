@@ -21,10 +21,10 @@ After this repository is published, add the marketplace source:
 codex plugin marketplace add yappologistic/frontend-GOD
 ```
 
-Pin a ref when you want a stable branch or tag:
+Pin the initial stable release:
 
 ```bash
-codex plugin marketplace add yappologistic/frontend-GOD --ref main
+codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.0
 ```
 
 If your Codex version requires sparse marketplace installation:

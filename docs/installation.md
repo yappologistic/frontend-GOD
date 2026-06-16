@@ -8,10 +8,10 @@ After this repository is published, add it as a Codex plugin marketplace:
 codex plugin marketplace add yappologistic/frontend-GOD
 ```
 
-Pin a ref:
+Pin the initial stable release:
 
 ```bash
-codex plugin marketplace add yappologistic/frontend-GOD --ref main
+codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.0
 ```
 
 Use sparse marketplace installation if your Codex build needs the marketplace folder explicitly:
