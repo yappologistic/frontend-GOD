@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add product-specificity audit checks for vague CTAs, generic sections, missing product/user context, repeated feature cards, and dashboard metrics without units.
 - Add `--doctor` to the npx installer for Codex CLI, marketplace, config, and skill-path diagnostics.
 - Make the npx installer rerunnable by updating existing marketplaces and adding a `--reinstall` path.
 - Add an `npx frontend-design-director` installer with marketplace and skill-only install paths.

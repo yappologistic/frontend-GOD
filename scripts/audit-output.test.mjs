@@ -50,13 +50,48 @@ writeFixture('tokens.css', `
 }
 `);
 
+writeFixture('GenericProductPage.tsx', `
+export function GenericProductPage() {
+  return (
+    <main>
+      <section>
+        <h1>Everything you need in one place</h1>
+        <p>Built for modern teams that want to move faster and save time.</p>
+        <a>Get Started</a>
+      </section>
+      <Card><Icon /><Title>Plan</Title><Description>Simple and powerful.</Description></Card>
+      <Card><Icon /><Title>Track</Title><Description>Insights at a glance.</Description></Card>
+      <Card><Icon /><Title>Grow</Title><Description>Make better decisions.</Description></Card>
+    </main>
+  );
+}
+`);
+
+writeFixture('Dashboard.tsx', `
+export function Dashboard() {
+  return (
+    <main>
+      <h1>Analytics Dashboard</h1>
+      <Metric label="Conversion" value="42" />
+      <Chart title="Performance trend" />
+    </main>
+  );
+}
+`);
+
 const designJson = parseJsonOutput(runScript('skills/frontend-design-director/scripts/design-audit.mjs', ['--json']));
 assert.equal(designJson.tool, 'design-audit');
-assert.equal(designJson.scanned, 2);
+assert.equal(designJson.scanned, 4);
 assert.ok(designJson.warningCount > 0);
 assert.ok(designJson.warnings.every((warning) => ['high', 'medium', 'low'].includes(warning.severity)));
 assert.ok(designJson.warnings.some((warning) => warning.rule === 'icon-only-button-name' && warning.severity === 'high'));
 assert.ok(designJson.warnings.some((warning) => warning.rule === 'generic-ai-copy' && warning.severity === 'low'));
+assert.ok(designJson.warnings.some((warning) => warning.rule === 'vague-cta-copy' && warning.severity === 'low'));
+assert.ok(designJson.warnings.some((warning) => warning.rule === 'generic-section-copy' && warning.severity === 'low'));
+assert.ok(designJson.warnings.some((warning) => warning.rule === 'missing-product-nouns' && warning.severity === 'low'));
+assert.ok(designJson.warnings.some((warning) => warning.rule === 'missing-user-context' && warning.severity === 'low'));
+assert.ok(designJson.warnings.some((warning) => warning.rule === 'repeated-feature-card-layout' && warning.severity === 'low'));
+assert.ok(designJson.warnings.some((warning) => warning.rule === 'dashboard-missing-units' && warning.severity === 'medium'));
 
 const mediumDesignJson = parseJsonOutput(runScript('skills/frontend-design-director/scripts/design-audit.mjs', ['--json', '--min-severity', 'medium']));
 assert.ok(mediumDesignJson.warnings.every((warning) => ['high', 'medium'].includes(warning.severity)));

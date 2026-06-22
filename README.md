@@ -161,7 +161,7 @@ npm run audit:a11y -- /path/to/frontend
 npm run audit:tokens -- /path/to/frontend
 ```
 
-The audit scripts are heuristic review prompts, not proof of quality. The design audit flags common AI-UI slop such as vague CTA copy, repeated large-radius cards, heavy shadows, gradient overuse, missing focus-style signals, missing reduced-motion accommodations, viewport-height risks, muted text overuse, and repeated default containers.
+The audit scripts are heuristic review prompts, not proof of quality. The design audit flags common AI-UI slop such as vague CTA copy, generic SaaS phrases, product pages with missing domain nouns or audience context, repeated feature-card layouts, dashboards without measurable units or labels, repeated large-radius cards, heavy shadows, gradient overuse, missing focus-style signals, missing reduced-motion accommodations, viewport-height risks, muted text overuse, and repeated default containers.
 
 Audit scripts support severity-aware output:
 

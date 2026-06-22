@@ -29,6 +29,9 @@ Findings should be ordered by severity and grounded in evidence from code, brows
 
 - The screen has a clear user, task, and primary action.
 - Copy names concrete domain objects and outcomes.
+- CTA labels describe the next product task instead of generic actions like "Get Started" or "Learn More".
+- Marketing sections name the audience, product category, or user workflow clearly enough that the page could not belong to any random SaaS product.
+- Dashboard metrics include useful labels, units, time ranges, denominators, or source context.
 - Visual direction fits the product's trust level and usage context.
 - The design contains at least one product-specific decision that is not generic SaaS decoration.
 

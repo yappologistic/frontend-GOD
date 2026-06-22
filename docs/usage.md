@@ -104,6 +104,8 @@ npm run audit:tokens -- /path/to/frontend --fail-on high
 
 Use JSON output when Codex needs to parse and summarize warnings. Use `--fail-on high` or `--fail-on medium` for CI-like checks. Treat all warnings as heuristic prompts for review, not automatic proof of failure.
 
+The design audit includes product-specificity checks for vague CTA labels, generic SaaS phrases, broad feature sections, missing product nouns, missing user-role context, repeated icon/title/description feature cards, and dashboard metrics without units or useful labels.
+
 # What The Skill Avoids
 
 - generic gradient SaaS templates

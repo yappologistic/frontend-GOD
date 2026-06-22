@@ -55,6 +55,16 @@ function countMatches(text, pattern) {
   return [...text.matchAll(pattern)].length;
 }
 
+const productNouns = /\b(?:account|admin|appointment|audit|booking|campaign|case|claim|client|conversation|customer|dashboard|deployment|device|document|employee|event|experiment|incident|invoice|issue|job|lead|ledger|member|message|metric|order|patient|payment|pipeline|policy|project|quote|record|report|request|reservation|risk|schedule|shipment|subscriber|subscription|task|ticket|transaction|user|vendor|visit|workspace|workflow)\b/i;
+const userRoles = /\b(?:admin|analyst|buyer|client|clinician|creator|customer|developer|dispatcher|editor|finance team|founder|manager|marketer|member|operator|patient|seller|support agent|team lead|user)\b/i;
+const measurableUnits = /\b(?:%|percent|px|ms|s|sec|seconds|min|minutes|hr|hours|day|days|week|weeks|month|months|year|years|\$|usd|eur|gbp|count|rate|score|ratio|revenue|arr|mrr|total|average|avg|median|p95|p99|unit|units|users|orders|tickets|requests|sessions)\b/i;
+const marketingSurface = /(?:<main\b|<section\b|<header\b|hero|headline|tagline|pricing|features?|benefits?|testimonial|cta|callToAction|call-to-action|Get started|Learn more)/i;
+const dashboardSurface = /\b(?:dashboard|analytics|chart|graph|metric|kpi|table|data grid|datatable|revenue|conversion|trend|report)\b/i;
+const genericSectionCopy = /\b(?:everything you need|built for modern teams|designed for teams|one place|work smarter|move faster|save time|simple and powerful|better way to work|all your tools|insights at a glance|make better decisions|grow your business)\b/ig;
+const genericCopy = /streamline your workflow|unlock insights|boost productivity|powerful platform|seamless experience|transform your business|all-in-one solution|work smarter|move faster|save time|make better decisions|one platform|one place for everything|built for modern teams|simple and powerful/ig;
+const vagueCta = />\s*(get started|learn more|explore|try it now|start now|see more|discover|view details|continue)\s*</ig;
+const featureCardSignals = /(?:<Card\b|className=["'][^"']*(?:card|rounded-2xl|shadow|border)[^"']*["'])[\s\S]{0,900}?(?:<Icon\b|lucide|Icon|icon:)[\s\S]{0,900}?(?:title|Title|heading|Heading)[\s\S]{0,900}?(?:description|Description|body|copy)/g;
+
 for (const filePath of walk(root)) {
   const text = fs.readFileSync(filePath, 'utf8');
   const file = { path: filePath, text };
@@ -99,15 +109,35 @@ for (const filePath of walk(root)) {
     warn('missing-data-states', 'medium', file, 0, 'Data UI may be missing loading/empty/error states.');
   }
 
-  const generic = /streamline your workflow|unlock insights|boost productivity|powerful platform|seamless experience|transform your business|all-in-one solution/ig;
-  for (const match of text.matchAll(generic)) {
+  for (const match of text.matchAll(genericCopy)) {
     warn('generic-ai-copy', 'low', file, match.index, `Possible generic AI copy: "${match[0]}".`);
   }
 
-  const vagueCta = />\s*(get started|learn more|explore|try it now|start now|see more)\s*</ig;
-  const vagueCtaCount = countMatches(text, vagueCta);
-  if (vagueCtaCount >= 2) {
-    warn('vague-cta-copy', 'low', file, 0, `Several vague CTAs (${vagueCtaCount}). Prefer action copy tied to the product task.`);
+  const vagueCtaMatches = [...text.matchAll(vagueCta)];
+  for (const match of vagueCtaMatches) {
+    warn('vague-cta-copy', 'low', file, match.index, `Vague CTA copy "${match[1]}". Prefer action copy tied to the product task.`);
+  }
+
+  const genericSectionMatches = [...text.matchAll(genericSectionCopy)];
+  if (genericSectionMatches.length >= 2 && !productNouns.test(text)) {
+    warn('generic-section-copy', 'low', file, genericSectionMatches[0].index, 'Several sections use broad claims without product-specific nouns or outcomes.');
+  }
+
+  if (marketingSurface.test(text) && !productNouns.test(text)) {
+    warn('missing-product-nouns', 'low', file, 0, 'Marketing or product UI lacks concrete product nouns. Add domain objects, user tasks, or outcomes.');
+  }
+
+  if (marketingSurface.test(text) && vagueCtaMatches.length >= 1 && !userRoles.test(text)) {
+    warn('missing-user-context', 'low', file, 0, 'CTA-oriented UI does not name a clear user role or audience context.');
+  }
+
+  const featureCardCount = countMatches(text, featureCardSignals);
+  if (featureCardCount >= 3 && !productNouns.test(text)) {
+    warn('repeated-feature-card-layout', 'low', file, 0, `Repeated feature-card pattern (${featureCardCount}) without enough product-specific signal.`);
+  }
+
+  if (dashboardSurface.test(text) && !measurableUnits.test(text)) {
+    warn('dashboard-missing-units', 'medium', file, 0, 'Dashboard or analytics UI appears to lack measurable units, time ranges, or metric labels.');
   }
 
   const rounded2xlCount = countMatches(text, /\brounded-2xl\b/g);

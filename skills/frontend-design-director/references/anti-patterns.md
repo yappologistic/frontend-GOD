@@ -12,6 +12,24 @@ Avoid:
 - "streamline your workflow", "unlock insights", "boost productivity", "powerful platform", "seamless experience"
 - component-library defaults with no product-specific tokens, density, or copy
 
+# Generic Product Copy
+
+Avoid:
+
+- vague CTA labels such as "Get Started", "Learn More", "Explore", and "View Details" when the action can name the user's next task
+- broad section claims such as "everything you need", "built for modern teams", "move faster", "save time", and "make better decisions"
+- feature sections that could fit any SaaS product because they never mention domain objects, user roles, workflows, or outcomes
+- repeated icon/title/description feature cards where swapping the icons would not change the message
+- dashboard labels without units, time ranges, denominators, or source context
+- empty marketing pages that never name who the product is for
+
+Prefer:
+
+- action copy that names the task: "Create invoice", "Review claims", "Invite team", "Schedule visit", "Export report"
+- product nouns users recognize: invoice, patient, ticket, campaign, deployment, order, account, project, report
+- audience context when it changes the UX: operator, analyst, clinic admin, developer, manager, support agent
+- metrics with units and scope: "Resolution time, hours", "Conversion rate, %", "Open tickets, last 7 days"
+
 # Weak UX
 
 Avoid:
