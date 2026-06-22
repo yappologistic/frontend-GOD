@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add an `npx frontend-design-director` installer with marketplace and skill-only install paths.
 - Add mode-specific checklists and a `P0`-`P3` frontend review severity model.
 - Add shadcn/Radix and Codex browser-comment workflow guidance.
 - Add severity-aware JSON output, severity filtering, and fail thresholds to the audit scripts.

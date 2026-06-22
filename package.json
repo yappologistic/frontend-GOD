@@ -5,10 +5,26 @@
   "description": "Repository maintenance scripts for the Frontend Design Director Codex plugin.",
   "license": "MIT",
   "type": "module",
+  "bin": {
+    "frontend-design-director": "./bin/frontend-design-director.mjs"
+  },
+  "files": [
+    ".agents/plugins",
+    ".codex-plugin",
+    "bin",
+    "docs",
+    "plugins",
+    "scripts",
+    "skills",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "validate": "node scripts/validate-plugin.mjs",
-    "check:scripts": "node --check skills/frontend-design-director/scripts/audit-common.mjs && node --check skills/frontend-design-director/scripts/design-audit.mjs && node --check skills/frontend-design-director/scripts/a11y-static-check.mjs && node --check skills/frontend-design-director/scripts/token-audit.mjs && node --check scripts/validate-plugin.mjs && node --check scripts/audit-output.test.mjs",
+    "check:scripts": "node --check bin/frontend-design-director.mjs && node --check skills/frontend-design-director/scripts/audit-common.mjs && node --check skills/frontend-design-director/scripts/design-audit.mjs && node --check skills/frontend-design-director/scripts/a11y-static-check.mjs && node --check skills/frontend-design-director/scripts/token-audit.mjs && node --check scripts/validate-plugin.mjs && node --check scripts/audit-output.test.mjs && node --check scripts/installer.test.mjs",
     "test:audit-output": "node scripts/audit-output.test.mjs",
+    "test:installer": "node scripts/installer.test.mjs",
     "audit:design": "node skills/frontend-design-director/scripts/design-audit.mjs",
     "audit:a11y": "node skills/frontend-design-director/scripts/a11y-static-check.mjs",
     "audit:tokens": "node skills/frontend-design-director/scripts/token-audit.mjs"

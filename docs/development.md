@@ -59,6 +59,7 @@ Run:
 npm run validate
 npm run check:scripts
 npm run test:audit-output
+npm run test:installer
 ```
 
 Validation checks that the expected references, including `codex-tool-workflows.md`, exist and that audit scripts parse.

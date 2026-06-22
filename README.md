@@ -15,7 +15,37 @@ It is for developers, designers, product engineers, and teams that want Codex to
 
 ## Installation
 
-### Option A: GitHub Marketplace Source
+### Option A: npx Installer From GitHub
+
+Run:
+
+```bash
+npx github:yappologistic/frontend-GOD
+```
+
+That runs the Codex marketplace command for you:
+
+```bash
+codex plugin marketplace add yappologistic/frontend-GOD
+```
+
+Pin a release:
+
+```bash
+npx github:yappologistic/frontend-GOD --ref v0.1.1
+```
+
+Skill-only fallback:
+
+```bash
+npx github:yappologistic/frontend-GOD --skill-only
+```
+
+After the package is published to npm, `npx frontend-design-director` works as the shorter equivalent.
+
+Restart Codex or start a new Codex thread if the plugin/skill does not appear immediately.
+
+### Option B: GitHub Marketplace Source
 
 Add the marketplace source:
 
@@ -37,7 +67,7 @@ codex plugin marketplace add https://github.com/yappologistic/frontend-GOD.git -
 
 Restart Codex after adding or updating a marketplace if the plugin does not appear immediately.
 
-### Option B: Local Plugin Development
+### Option C: Local Plugin Development
 
 ```bash
 git clone https://github.com/yappologistic/frontend-GOD.git
@@ -46,7 +76,7 @@ codex plugin marketplace add ./
 codex plugin marketplace list
 ```
 
-### Option C: Manual Skill-Only Install
+### Option D: Manual Skill-Only Install
 
 Copy `skills/frontend-design-director/` into either:
 
@@ -108,6 +138,7 @@ package.json
 npm run validate
 npm run check:scripts
 npm run test:audit-output
+npm run test:installer
 ```
 
 The skill audit scripts can also be run against a frontend project:

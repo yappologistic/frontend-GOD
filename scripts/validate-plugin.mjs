@@ -131,7 +131,9 @@ const expectedDocs = [
 
 const expectedRepoScripts = [
   'scripts/validate-plugin.mjs',
-  'scripts/audit-output.test.mjs'
+  'scripts/audit-output.test.mjs',
+  'scripts/installer.test.mjs',
+  'bin/frontend-design-director.mjs'
 ];
 
 let manifest;
@@ -155,6 +157,16 @@ check('plugin manifest required fields', () => {
     throw new Error(`manifest version is not semver-like: ${manifest.version}`);
   }
   return `${manifest.name}@${manifest.version}`;
+});
+
+check('npm package bin exists', () => {
+  const pkg = readJson('package.json');
+  const binPath = pkg.bin?.['frontend-design-director'];
+  if (binPath !== './bin/frontend-design-director.mjs') {
+    throw new Error('package.json missing frontend-design-director bin');
+  }
+  mustExist(binPath.replace(/^\.\//, ''));
+  return binPath;
 });
 
 check('packaged manifest matches root manifest', () => {
