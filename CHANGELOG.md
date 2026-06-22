@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add mode-specific checklists and a `P0`-`P3` frontend review severity model.
+- Add shadcn/Radix and Codex browser-comment workflow guidance.
+- Add severity-aware JSON output, severity filtering, and fail thresholds to the audit scripts.
+- Add a dependency-free audit output test harness.
 - Add a Codex Workflow Router so the skill cooperates with built-in browser, Chrome, GitHub, Figma/product-design, data analytics, image generation, and companion frontend workflows.
 - Add `references/codex-tool-workflows.md` with Codex-native visual QA, dev-server, specialized workflow, and unavailable-tool fallback guidance.
 - Update docs to describe Codex-native workflow pairings and official Codex customization/plugin alignment.

@@ -40,6 +40,17 @@ They must stay dependency-free and should not modify user projects.
 
 The design audit script is intentionally heuristic. Add checks only when they catch recurring frontend quality failures, such as vague copy, overused cards, missing focus styling signals, missing reduced-motion handling, token drift, or mobile layout risks. Keep warnings actionable and avoid checks that would flag the audit scripts themselves.
 
+Audit script output should stay consistent across `design-audit.mjs`, `a11y-static-check.mjs`, and `token-audit.mjs`:
+
+- `--json` emits `{ tool, scanned, warningCount, minSeverity, warnings }`.
+- each warning includes `rule`, `severity`, `file`, `line`, and `message`.
+- severity is one of `high`, `medium`, or `low`.
+- `--min-severity` filters output.
+- `--fail-on` exits non-zero at or above the chosen severity.
+- `--fail-on-warning` remains supported for compatibility and behaves like `--fail-on low`.
+
+When changing audit output behavior, update and run `scripts/audit-output.test.mjs` first.
+
 # Validation
 
 Run:
@@ -47,6 +58,7 @@ Run:
 ```bash
 npm run validate
 npm run check:scripts
+npm run test:audit-output
 ```
 
 Validation checks that the expected references, including `codex-tool-workflows.md`, exist and that audit scripts parse.

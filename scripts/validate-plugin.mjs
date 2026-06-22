@@ -108,6 +108,7 @@ const expectedReferences = [
 ];
 
 const expectedSkillScripts = [
+  'audit-common.mjs',
   'design-audit.mjs',
   'a11y-static-check.mjs',
   'token-audit.mjs'
@@ -126,6 +127,11 @@ const expectedDocs = [
   'SECURITY.md',
   'CHANGELOG.md',
   'LICENSE'
+];
+
+const expectedRepoScripts = [
+  'scripts/validate-plugin.mjs',
+  'scripts/audit-output.test.mjs'
 ];
 
 let manifest;
@@ -216,8 +222,8 @@ check('README and docs files exist', () => {
 });
 
 check('repository validator passes node --check', () => {
-  nodeCheck('scripts/validate-plugin.mjs');
-  return 'scripts/validate-plugin.mjs';
+  for (const script of expectedRepoScripts) nodeCheck(script);
+  return `${expectedRepoScripts.length} repository scripts checked`;
 });
 
 console.log('Frontend Design Director Plugin Validation\n');

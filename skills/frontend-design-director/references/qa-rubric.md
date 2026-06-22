@@ -14,6 +14,17 @@ Categories: Product Fit, Hierarchy, States, Accessibility, Responsive, Visual Cr
 
 Do not finalize below 12/16. Do not finalize with a 0 in Accessibility, Responsive, Hierarchy, or Verification.
 
+# Review Severity Model
+
+Use this severity model for Review Mode and frontend QA findings:
+
+- `P0`: primary flow unusable, blank or crashing page, data loss risk, destructive action can fire accidentally, or user cannot complete the requested task.
+- `P1`: accessibility blocker, mobile layout blocks task completion, primary action/data unavailable, severe overflow/overlap, broken form submission, or visible trust/security issue.
+- `P2`: confusing hierarchy, missing critical state, weak keyboard support, unclear save/cancel behavior, poor responsive adaptation, misleading chart/data context, or generic UI that undermines comprehension.
+- `P3`: visual polish, copy specificity, small spacing/alignment issue, token cleanup, component consistency, or non-blocking generic design pattern.
+
+Findings should be ordered by severity and grounded in evidence from code, browser inspection, screenshots, comments, or commands.
+
 # Product Fit
 
 - The screen has a clear user, task, and primary action.

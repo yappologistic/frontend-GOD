@@ -107,6 +107,7 @@ package.json
 ```bash
 npm run validate
 npm run check:scripts
+npm run test:audit-output
 ```
 
 The skill audit scripts can also be run against a frontend project:
@@ -119,18 +120,31 @@ npm run audit:tokens -- /path/to/frontend
 
 The audit scripts are heuristic review prompts, not proof of quality. The design audit flags common AI-UI slop such as vague CTA copy, repeated large-radius cards, heavy shadows, gradient overuse, missing focus-style signals, missing reduced-motion accommodations, viewport-height risks, muted text overuse, and repeated default containers.
 
+Audit scripts support severity-aware output:
+
+```bash
+npm run audit:design -- /path/to/frontend --json
+npm run audit:a11y -- /path/to/frontend --min-severity medium
+npm run audit:tokens -- /path/to/frontend --fail-on high
+```
+
+Severity levels are `high`, `medium`, and `low`. `--json` emits structured output for Codex to summarize, `--min-severity` filters displayed warnings, `--fail-on` exits non-zero when warnings at or above that severity exist, and `--fail-on-warning` remains as the broad compatibility option.
+
 ## Codex-Native Workflows
 
 The skill is designed to cooperate with Codex plugins and built-in workflows rather than replace them. It uses frontend-design judgment as the quality layer while deferring specialized concerns to the matching workflow:
 
 - In-app browser or Browser use for local unauthenticated previews, screenshots, interaction checks, and visual iteration.
 - Chrome workflows for signed-in browser state, extension-dependent pages, or Chrome/DevTools inspection.
+- shadcn/Radix workflows for projects that already use shadcn/ui, Radix primitives, or registry-based component conventions.
 - GitHub workflows for PR comments, CI failures, issues, and publishing flow.
 - Figma and product-design workflows for design-file inspection, generation, and design-to-code handoff.
 - Data analytics workflows for source-backed dashboard/report artifacts.
 - Image generation when the frontend needs a real bitmap asset and no existing asset fits.
 
 The bundled `references/codex-tool-workflows.md` file documents these pairings, fallback behavior when a tool is unavailable, viewport targets, and dev-server verification protocol.
+
+Review Mode uses a `P0`-`P3` severity model so findings are ordered by user impact rather than taste. Mode-specific checklists live in `references/mode-playbooks.md`.
 
 ## Contributing
 

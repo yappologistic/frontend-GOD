@@ -228,8 +228,8 @@ Use these files when relevant:
 - `references/component-patterns.md`: component behavior, states, forms, tables, nav, dialogs, cards, charts.
 - `references/accessibility-checklist.md`: accessibility implementation and review.
 - `references/anti-patterns.md`: generic AI UI, UX, accessibility, responsive, and implementation traps.
-- `references/qa-rubric.md`: final frontend QA scoring and checks.
-- `references/mode-playbooks.md`: Build, Redesign, Review, Design-System, and Debug-UX workflows.
+- `references/qa-rubric.md`: final frontend QA scoring, review severity, and checks.
+- `references/mode-playbooks.md`: Build, Redesign, Review, Design-System, and Debug-UX workflows and checklists.
 - `references/codex-tool-workflows.md`: Codex-native browser, Chrome, Playwright, GitHub, Figma, data artifact, image generation, and dev-server workflows.
 - `references/page-recipes.md`: landing, dashboard, settings, pricing, checkout, auth, onboarding, data table, admin, and mobile recipes.
 - `references/examples.md`: weak vs strong examples that anchor taste.

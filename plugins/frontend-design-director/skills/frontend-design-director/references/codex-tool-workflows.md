@@ -51,6 +51,19 @@ At each relevant viewport, check:
 
 After the first implementation pass, identify the three weakest visual or UX issues, patch them, and re-check the affected viewport or interaction path.
 
+# Browser Comments
+
+When the user leaves comments in the Codex in-app browser or asks you to address browser annotations:
+
+1. Read or inspect the browser comments before editing.
+2. Map each comment to the affected route, component, viewport, visual state, or interaction.
+3. Fix the commented issue directly and keep unrelated design changes out unless adjacent breakage blocks the fix.
+4. Preserve the existing card/component structure when the comment asks for a local adjustment rather than a redesign.
+5. Re-open or re-check the commented route and state after patching.
+6. Report which comments were addressed and which could not be verified.
+
+Good browser-comment responses are precise: they name the affected element or area, the viewport/state, the patch, and the re-check.
+
 # Browser Use And Playwright
 
 When Browser use or Playwright-like tools are available:
@@ -75,6 +88,23 @@ When available and relevant:
 - inspect computed styles for overflow, contrast, layout, sticky positioning, and z-index issues
 - verify responsive emulation for the target breakpoints
 - keep sensitive browser tasks narrow and report when signed-in or profile-dependent verification was used
+
+# shadcn And Radix Workflows
+
+Use shadcn/Radix-specific workflows when a project already uses shadcn/ui, Radix primitives, or a local component registry based on them. Do not add shadcn/Radix to a project that already has a different adequate design system unless the user asks or the repo clearly expects it.
+
+When working in a shadcn/Radix project:
+
+- inspect existing `components/ui`, registry files, token conventions, `cn`/variant helpers, and local component wrappers before editing
+- prefer composing existing primitives and variants over copying new one-off component code
+- do not overwrite generated or registry-managed components casually; extend through variants, wrappers, or local composition when that matches the repo
+- preserve Radix accessibility contracts: focus management, keyboard behavior, ARIA relationships, controlled/uncontrolled state patterns, portal behavior, and escape/close behavior
+- keep icon-only controls named with `aria-label` or `aria-labelledby`
+- customize tokens, density, copy, and layout so the result does not look like unmodified starter components
+- avoid styling each shadcn component ad hoc when a semantic token or variant should carry the role
+- verify dialogs, dropdowns, popovers, tabs, selects, command menus, and tooltips with keyboard and mobile/touch behavior when possible
+
+If the built-in shadcn skill or a project-specific shadcn workflow is available, let it own installation, component registry details, and command choices. Use this skill to review hierarchy, states, responsive behavior, accessibility, and product fit.
 
 # GitHub Workflows
 
