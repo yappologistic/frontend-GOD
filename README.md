@@ -32,7 +32,7 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin a release:
 
 ```bash
-npx github:yappologistic/frontend-GOD --ref v0.1.1
+npx github:yappologistic/frontend-GOD --ref v0.1.2
 ```
 
 Skill-only fallback:
@@ -68,7 +68,7 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin the initial stable release:
 
 ```bash
-codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.1
+codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.2
 ```
 
 If your Codex version requires sparse marketplace installation, include both the marketplace file and plugin package:
