@@ -8,6 +8,7 @@ It is for developers, designers, product engineers, and teams that want Codex to
 
 - Guides Codex through build, redesign, review, design-system, and UX-debugging modes.
 - Routes frontend work through relevant Codex-native workflows such as Browser use, Chrome, Playwright-style browser automation, GitHub, Figma/product-design, data analytics, and image generation when those surfaces are available.
+- Adds workflow handoff contracts so Codex can prepare a compact frontend context packet, defer domain-specific decisions to companion skills/plugins, and return to frontend QA before final response.
 - Pushes frontend work toward clear hierarchy, accessibility, responsive behavior, strong states, and maintainable implementation.
 - Avoids generic AI-template visuals such as vague SaaS copy, default gradients, identical cards, low-contrast text, and missing loading/empty/error states.
 - Adds no-ship gates, a mandatory visual revision loop, Codex-aware visual QA workflow guidance, and a scored QA rubric for visually important frontend work.
@@ -185,7 +186,7 @@ The skill is designed to cooperate with Codex plugins and built-in workflows rat
 - Data analytics workflows for source-backed dashboard/report artifacts.
 - Image generation when the frontend needs a real bitmap asset and no existing asset fits.
 
-The bundled `references/codex-tool-workflows.md` file documents these pairings, fallback behavior when a tool is unavailable, viewport targets, and dev-server verification protocol.
+The bundled `references/codex-tool-workflows.md` file documents these pairings, fallback behavior when a tool is unavailable, viewport targets, and dev-server verification protocol. The bundled `references/workflow-handoff-contracts.md` file defines preflight context packets, ownership boundaries, and return-to-frontend-QA rules for GitHub, Figma/product-design, shadcn/Radix, browser/Chrome/Playwright, data analytics, image generation, frontend architecture, and git publishing workflows.
 
 Review Mode uses a `P0`-`P3` severity model so findings are ordered by user impact rather than taste. Mode-specific checklists live in `references/mode-playbooks.md`.
 

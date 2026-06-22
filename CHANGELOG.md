@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add workflow handoff contracts with preflight context packets, companion-workflow ownership boundaries, and return-to-frontend-QA rules.
+
 ## 0.1.2
 
 - Add product-specificity audit checks for vague CTAs, generic sections, missing product/user context, repeated feature cards, and dashboard metrics without units.

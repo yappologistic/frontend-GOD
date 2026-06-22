@@ -103,6 +103,7 @@ const expectedReferences = [
   'qa-rubric.md',
   'mode-playbooks.md',
   'codex-tool-workflows.md',
+  'workflow-handoff-contracts.md',
   'page-recipes.md',
   'examples.md'
 ];

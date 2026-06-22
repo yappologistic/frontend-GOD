@@ -51,6 +51,8 @@ After selecting the mode, identify which Codex workflows, installed skills, plug
 
 Read `references/codex-tool-workflows.md` when any built-in or plugin-provided Codex workflow may affect implementation or verification.
 
+Read `references/workflow-handoff-contracts.md` when another Codex skill, plugin, MCP tool, app connector, browser surface, or workflow owns part of the task. Build a compact preflight context packet before the handoff, let the specialized workflow own its domain, then return to frontend QA before final response.
+
 Prefer these workflow pairings when available and relevant:
 
 - Use the Codex in-app browser, Browser use, Playwright, or Chrome/DevTools workflows for visual QA, screenshots, responsive checks, console/network inspection, and interaction verification.
@@ -231,6 +233,7 @@ Use these files when relevant:
 - `references/qa-rubric.md`: final frontend QA scoring, review severity, and checks.
 - `references/mode-playbooks.md`: Build, Redesign, Review, Design-System, and Debug-UX workflows and checklists.
 - `references/codex-tool-workflows.md`: Codex-native browser, Chrome, Playwright, GitHub, Figma, data artifact, image generation, and dev-server workflows.
+- `references/workflow-handoff-contracts.md`: preflight context packets, workflow ownership boundaries, and return-to-frontend QA rules for companion Codex skills/plugins.
 - `references/page-recipes.md`: landing, dashboard, settings, pricing, checkout, auth, onboarding, data table, admin, and mobile recipes.
 - `references/examples.md`: weak vs strong examples that anchor taste.
 

@@ -82,6 +82,8 @@ The skill should cooperate with built-in Codex workflows and installed plugins:
 
 When a more specific workflow applies, this skill should handle frontend quality while the specialized workflow owns its domain.
 
+For cross-skill work, the skill uses `references/workflow-handoff-contracts.md` to prepare a compact preflight context packet, hand off domain-specific ownership, and return to frontend QA before final response. The packet captures the frontend mode, affected surface, framework/design system, primary user task, companion workflow, constraints, and verification needed.
+
 When the user leaves Codex browser comments on a rendered page, the skill should map each comment to the affected route, component, viewport, or interaction; patch the commented issue directly; re-check the route; and report which comments were addressed.
 
 # Quality Gates
