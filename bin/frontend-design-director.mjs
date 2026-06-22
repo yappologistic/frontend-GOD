@@ -74,13 +74,13 @@ function printHelp() {
 
 Usage:
   npx github:yappologistic/frontend-GOD
-  npx github:yappologistic/frontend-GOD --ref v0.1.2
+  npx github:yappologistic/frontend-GOD --ref v0.1.3
   npx github:yappologistic/frontend-GOD --skill-only
   npx github:yappologistic/frontend-GOD --doctor
 
 After npm package publishing, these also work:
   npx frontend-design-director
-  npx frontend-design-director --ref v0.1.2
+  npx frontend-design-director --ref v0.1.3
   npx frontend-design-director --skill-only
   npx frontend-design-director --doctor
 

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.3
+
 - Add workflow handoff contracts with preflight context packets, companion-workflow ownership boundaries, and return-to-frontend-QA rules.
 
 ## 0.1.2
