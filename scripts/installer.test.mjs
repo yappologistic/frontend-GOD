@@ -17,6 +17,27 @@ function run(args, env = {}) {
   });
 }
 
+function makeFakeCodex(scriptBody) {
+  const binDir = fs.mkdtempSync(path.join(os.tmpdir(), 'frontend-design-director-codex-'));
+  const logPath = path.join(binDir, 'codex.log');
+  const fakePath = path.join(binDir, process.platform === 'win32' ? 'codex.cmd' : 'codex');
+  if (process.platform === 'win32') {
+    fs.writeFileSync(fakePath, `@echo off\r\nnode "${scriptBody}" %*\r\n`);
+  } else {
+    fs.writeFileSync(fakePath, `#!/usr/bin/env sh\nnode "${scriptBody}" "$@"\n`);
+    fs.chmodSync(fakePath, 0o755);
+  }
+  return {
+    binDir,
+    logPath,
+    env: {
+      PATH: `${binDir}${path.delimiter}${process.env.PATH}`,
+      CODEX_FAKE_LOG: logPath
+    },
+    cleanup: () => fs.rmSync(binDir, { recursive: true, force: true })
+  };
+}
+
 const help = run(['--help']);
 assert.equal(help.status, 0, help.stderr);
 assert.match(help.stdout, /Usage:/);
@@ -26,6 +47,11 @@ const pluginDryRun = run(['--dry-run']);
 assert.equal(pluginDryRun.status, 0, pluginDryRun.stderr);
 assert.match(pluginDryRun.stdout, /codex plugin marketplace add yappologistic\/frontend-GOD/);
 assert.match(pluginDryRun.stdout, /Restart Codex/);
+
+const reinstallDryRun = run(['--dry-run', '--reinstall']);
+assert.equal(reinstallDryRun.status, 0, reinstallDryRun.stderr);
+assert.match(reinstallDryRun.stdout, /codex plugin marketplace remove frontend-god/);
+assert.match(reinstallDryRun.stdout, /codex plugin marketplace add yappologistic\/frontend-GOD/);
 
 const pinnedDryRun = run(['--dry-run', '--ref', 'v0.1.1']);
 assert.equal(pinnedDryRun.status, 0, pinnedDryRun.stderr);
@@ -46,5 +72,36 @@ assert.equal(skillInstall.status, 0, skillInstall.stderr);
 assert.equal(fs.existsSync(path.join(tempHome, '.agents', 'skills', 'frontend-design-director', 'SKILL.md')), true);
 assert.match(skillInstall.stdout, /Installed skill-only copy/);
 
+const fakeCodexScript = writeFakeCodexScript();
+const fakeCodex = makeFakeCodex(fakeCodexScript);
+const alreadyAdded = run([], fakeCodex.env);
+assert.equal(alreadyAdded.status, 0, alreadyAdded.stderr);
+assert.match(alreadyAdded.stdout, /already exists; updating existing marketplace/);
+assert.match(fs.readFileSync(fakeCodex.logPath, 'utf8'), /plugin marketplace add yappologistic\/frontend-GOD/);
+assert.match(fs.readFileSync(fakeCodex.logPath, 'utf8'), /plugin marketplace upgrade frontend-god/);
+fakeCodex.cleanup();
+fs.rmSync(fakeCodexScript, { force: true });
+
 fs.rmSync(tempHome, { recursive: true, force: true });
 console.log('installer tests passed');
+
+function writeFakeCodexScript() {
+  const scriptPath = path.join(os.tmpdir(), `fake-codex-${process.pid}.mjs`);
+  fs.writeFileSync(scriptPath, `
+import fs from 'node:fs';
+import process from 'node:process';
+
+const args = process.argv.slice(2);
+fs.appendFileSync(process.env.CODEX_FAKE_LOG, args.join(' ') + '\\n');
+if (args.join(' ') === 'plugin marketplace add yappologistic/frontend-GOD') {
+  console.error("Error: marketplace 'frontend-god' is already added from a different source; remove it before adding this source");
+  process.exit(1);
+}
+if (args.join(' ') === 'plugin marketplace upgrade frontend-god') {
+  console.log('upgraded frontend-god');
+  process.exit(0);
+}
+process.exit(0);
+`);
+  return scriptPath;
+}

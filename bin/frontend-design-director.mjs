@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const repo = 'yappologistic/frontend-GOD';
+const marketplaceName = 'frontend-god';
 const skillName = 'frontend-design-director';
 const args = process.argv.slice(2);
 
@@ -34,6 +35,7 @@ function parseArgs(rawArgs) {
     help: false,
     dryRun: false,
     force: false,
+    reinstall: false,
     skillOnly: false,
     ref: null
   };
@@ -44,6 +46,7 @@ function parseArgs(rawArgs) {
     if (arg === '--help' || arg === '-h') options.help = true;
     else if (arg === '--dry-run') options.dryRun = true;
     else if (arg === '--force') options.force = true;
+    else if (arg === '--reinstall') options.reinstall = true;
     else if (arg === '--skill-only') options.skillOnly = true;
     else if (arg === '--ref') {
       if (!rawArgs[index + 1] || rawArgs[index + 1].startsWith('--')) {
@@ -74,6 +77,7 @@ After npm package publishing, these also work:
 
 Options:
   --ref <ref>     Pin the Codex marketplace source to a Git ref.
+  --reinstall     Remove the existing marketplace entry before adding it again.
   --skill-only    Copy only the skill to ~/.agents/skills/frontend-design-director.
   --force         Replace an existing skill-only install.
   --dry-run       Print what would happen without changing anything.
@@ -89,6 +93,10 @@ function installPluginMarketplace(options) {
   if (options.ref) commandArgs.push('--ref', options.ref);
 
   console.log(`Installing Frontend Design Director through Codex marketplace.`);
+  if (options.reinstall) {
+    console.log(`Reinstall requested; existing marketplace '${marketplaceName}' will be removed first.`);
+    console.log(`Command: codex plugin marketplace remove ${marketplaceName}`);
+  }
   console.log(`Command: codex ${commandArgs.join(' ')}`);
 
   if (options.dryRun) {
@@ -96,19 +104,60 @@ function installPluginMarketplace(options) {
     return;
   }
 
-  const result = spawnSync('codex', commandArgs, {
-    stdio: 'inherit',
-    shell: process.platform === 'win32'
-  });
+  if (options.reinstall) {
+    const removeResult = runCodex(['plugin', 'marketplace', 'remove', marketplaceName]);
+    if (removeResult.status !== 0) {
+      console.warn(`Could not remove existing marketplace '${marketplaceName}'. Continuing with add.`);
+      printCommandOutput(removeResult);
+    }
+  }
 
+  const result = runCodex(commandArgs);
   if (result.error) {
     console.error(`\nCould not run the Codex CLI: ${result.error.message}`);
     console.error('Install Codex or use the fallback: npx github:yappologistic/frontend-GOD --skill-only');
     process.exit(1);
   }
 
-  if (result.status !== 0) process.exit(result.status ?? 1);
+  if (result.status !== 0) {
+    const existingName = existingMarketplaceName(result.stderr);
+    if (existingName) {
+      console.log(`Marketplace '${existingName}' already exists; updating existing marketplace instead.`);
+      const upgradeResult = runCodex(['plugin', 'marketplace', 'upgrade', existingName]);
+      printCommandOutput(upgradeResult);
+      if (upgradeResult.status !== 0) {
+        console.error(`Could not update existing marketplace '${existingName}'.`);
+        console.error(`To replace it with ${repo}, run: npx github:yappologistic/frontend-GOD --reinstall`);
+        process.exit(upgradeResult.status ?? 1);
+      }
+      console.log(`Updated existing marketplace '${existingName}'.`);
+      console.log(`To replace the existing marketplace source with ${repo}, run: npx github:yappologistic/frontend-GOD --reinstall`);
+      printRestartNote();
+      return;
+    }
+
+    printCommandOutput(result);
+    process.exit(result.status ?? 1);
+  }
+
+  printCommandOutput(result);
   printRestartNote();
+}
+
+function runCodex(commandArgs) {
+  return spawnSync('codex', commandArgs, {
+    encoding: 'utf8',
+    shell: process.platform === 'win32'
+  });
+}
+
+function printCommandOutput(result) {
+  if (result.stdout) process.stdout.write(result.stdout);
+  if (result.stderr) process.stderr.write(result.stderr);
+}
+
+function existingMarketplaceName(stderr = '') {
+  return stderr.match(/marketplace '([^']+)' is already added/i)?.[1] || null;
 }
 
 function installSkillOnly(options) {

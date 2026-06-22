@@ -26,9 +26,15 @@ Install only the skill folder into the user-scoped skill location:
 npx github:yappologistic/frontend-GOD --skill-only
 ```
 
+Reinstall or replace an existing marketplace source:
+
+```bash
+npx github:yappologistic/frontend-GOD --reinstall
+```
+
 After the package is published to npm, `npx frontend-design-director` works as the shorter equivalent.
 
-Use `--skill-only --force` to replace an existing skill-only install. Restart Codex or start a new Codex thread if the plugin/skill does not appear immediately.
+If the marketplace is already registered, the installer updates the existing marketplace. Use `--reinstall` when you want to remove the old marketplace source and add this GitHub source again. Use `--skill-only --force` to replace an existing skill-only install. Restart Codex or start a new Codex thread if the plugin/skill does not appear immediately.
 
 # Option B: Install From GitHub Marketplace Source
 

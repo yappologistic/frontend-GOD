@@ -41,6 +41,12 @@ Skill-only fallback:
 npx github:yappologistic/frontend-GOD --skill-only
 ```
 
+Reinstall or replace an existing marketplace source:
+
+```bash
+npx github:yappologistic/frontend-GOD --reinstall
+```
+
 After the package is published to npm, `npx frontend-design-director` works as the shorter equivalent.
 
 Restart Codex or start a new Codex thread if the plugin/skill does not appear immediately.
