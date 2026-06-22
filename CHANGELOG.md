@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 0.1.4
+
+- Add a required QA evidence block for visually important frontend work.
+- Add sample frontend regression fixtures for audit-script coverage.
+
 ## 0.1.3
 
 - Add workflow handoff contracts with preflight context packets, companion-workflow ownership boundaries, and return-to-frontend-QA rules.

@@ -54,9 +54,9 @@ assert.equal(reinstallDryRun.status, 0, reinstallDryRun.stderr);
 assert.match(reinstallDryRun.stdout, /codex plugin marketplace remove frontend-god/);
 assert.match(reinstallDryRun.stdout, /codex plugin marketplace add yappologistic\/frontend-GOD/);
 
-const pinnedDryRun = run(['--dry-run', '--ref', 'v0.1.3']);
+const pinnedDryRun = run(['--dry-run', '--ref', 'v0.1.4']);
 assert.equal(pinnedDryRun.status, 0, pinnedDryRun.stderr);
-assert.match(pinnedDryRun.stdout, /--ref v0\.1\.3/);
+assert.match(pinnedDryRun.stdout, /--ref v0\.1\.4/);
 
 const missingRef = run(['--ref']);
 assert.equal(missingRef.status, 1);

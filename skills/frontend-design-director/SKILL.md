@@ -170,6 +170,22 @@ For runnable apps, follow the dev-server protocol in `references/codex-tool-work
 
 Before finalizing any frontend UI, read `references/qa-rubric.md`.
 
+For visually important frontend work, include a compact QA evidence block in the final response. Use this structure unless the user requested a different format:
+
+```text
+QA Evidence
+- Rubric score: N/16
+- Surface inspected: browser | screenshot | PR | Figma | CI | artifact | code-only
+- Viewports checked: list exact widths/devices, or state not available
+- Interaction path tested: primary action or state exercised
+- Commands run: command -> result
+- Audit scripts: script names and notable warnings, or not run with reason
+- Visual revision loop: three issues found and patched, or code-based critique if browser unavailable
+- Remaining gaps: unavailable tools, unverified states, or none
+```
+
+Do not claim production-ready frontend quality when the block is missing required evidence or relies only on unverified assertions.
+
 # Stack Selection Rules
 
 Do not change stacks casually.
@@ -253,13 +269,8 @@ When finishing frontend work, report:
 
 - what changed
 - design rationale in 2-5 bullets
-- accessibility, responsive, and performance checks performed
-- commands run and results
-- whether visual inspection was performed
-- built-in Codex workflow or plugin surface used, when relevant
-- inspected surface: browser, screenshot, PR, Figma, CI, artifact, or code-only
-- viewport/device coverage and interaction path tested, when visual
-- assumptions or follow-up improvements
+- the QA evidence block for visually important frontend work
+- assumptions or follow-up improvements when they matter
 
 Keep the final response direct and useful.
 

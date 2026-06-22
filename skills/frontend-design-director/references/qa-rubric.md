@@ -14,6 +14,24 @@ Categories: Product Fit, Hierarchy, States, Accessibility, Responsive, Visual Cr
 
 Do not finalize below 12/16. Do not finalize with a 0 in Accessibility, Responsive, Hierarchy, or Verification.
 
+# Required QA Evidence Block
+
+For visually important frontend work, final responses should include this compact evidence block:
+
+```text
+QA Evidence
+- Rubric score: N/16
+- Surface inspected: browser | screenshot | PR | Figma | CI | artifact | code-only
+- Viewports checked: exact widths/devices, or not available
+- Interaction path tested: primary action or state exercised
+- Commands run: command -> result
+- Audit scripts: script names and notable warnings, or not run with reason
+- Visual revision loop: three issues found and patched, or code-based critique if browser unavailable
+- Remaining gaps: unavailable tools, unverified states, or none
+```
+
+The block should be evidence, not ceremony. If visual inspection was unavailable, say so directly and do not claim browser-verified or production-ready quality.
+
 # Review Severity Model
 
 Use this severity model for Review Mode and frontend QA findings:

@@ -33,7 +33,7 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin a release:
 
 ```bash
-npx github:yappologistic/frontend-GOD --ref v0.1.3
+npx github:yappologistic/frontend-GOD --ref v0.1.4
 ```
 
 Skill-only fallback:
@@ -69,7 +69,7 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin the initial stable release:
 
 ```bash
-codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.3
+codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.4
 ```
 
 If your Codex version requires sparse marketplace installation, include both the marketplace file and plugin package:
@@ -163,6 +163,8 @@ npm run audit:tokens -- /path/to/frontend
 ```
 
 The audit scripts are heuristic review prompts, not proof of quality. The design audit flags common AI-UI slop such as vague CTA copy, generic SaaS phrases, product pages with missing domain nouns or audience context, repeated feature-card layouts, dashboards without measurable units or labels, repeated large-radius cards, heavy shadows, gradient overuse, missing focus-style signals, missing reduced-motion accommodations, viewport-height risks, muted text overuse, and repeated default containers.
+
+Regression fixtures for these checks live under `scripts/fixtures/audit-regression/` and are exercised by `npm run test:audit-output`.
 
 Audit scripts support severity-aware output:
 

@@ -17,7 +17,7 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin a specific release:
 
 ```bash
-npx github:yappologistic/frontend-GOD --ref v0.1.3
+npx github:yappologistic/frontend-GOD --ref v0.1.4
 ```
 
 Install only the skill folder into the user-scoped skill location:
@@ -53,7 +53,7 @@ codex plugin marketplace add yappologistic/frontend-GOD
 Pin the initial stable release:
 
 ```bash
-codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.3
+codex plugin marketplace add yappologistic/frontend-GOD --ref v0.1.4
 ```
 
 Use sparse marketplace installation if your Codex build needs explicit paths. Include both the marketplace file and plugin package:

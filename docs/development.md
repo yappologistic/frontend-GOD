@@ -51,6 +51,16 @@ Audit script output should stay consistent across `design-audit.mjs`, `a11y-stat
 
 When changing audit output behavior, update and run `scripts/audit-output.test.mjs` first.
 
+# Audit Regression Fixtures
+
+Sample frontend fixtures live in:
+
+```text
+scripts/fixtures/audit-regression/
+```
+
+These fixtures represent recurring frontend quality failures such as generic SaaS pages, dashboards without units, inaccessible forms, and data tables without states. Keep them realistic enough to exercise the audit scripts against product-shaped code, not only isolated snippets.
+
 # Validation
 
 Run:
