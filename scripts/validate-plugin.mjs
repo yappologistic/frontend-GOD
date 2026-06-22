@@ -46,6 +46,54 @@ function nodeCheck(rel) {
   }
 }
 
+function listFilesRecursive(relDir) {
+  const base = mustExist(relDir);
+  const files = [];
+
+  function walk(current) {
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      const full = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+      } else if (entry.isFile()) {
+        files.push(path.relative(base, full).replaceAll(path.sep, '/'));
+      }
+    }
+  }
+
+  walk(base);
+  return files.sort();
+}
+
+function compareDirectoryContents(leftRel, rightRel) {
+  const leftFiles = listFilesRecursive(leftRel);
+  const rightFiles = listFilesRecursive(rightRel);
+  const leftSet = new Set(leftFiles);
+  const rightSet = new Set(rightFiles);
+  const missingFromRight = leftFiles.filter((file) => !rightSet.has(file));
+  const missingFromLeft = rightFiles.filter((file) => !leftSet.has(file));
+
+  if (missingFromRight.length || missingFromLeft.length) {
+    throw new Error([
+      `${leftRel} and ${rightRel} contain different files`,
+      missingFromRight.length ? `missing from ${rightRel}: ${missingFromRight.join(', ')}` : null,
+      missingFromLeft.length ? `missing from ${leftRel}: ${missingFromLeft.join(', ')}` : null
+    ].filter(Boolean).join('\n'));
+  }
+
+  const changed = leftFiles.filter((file) => {
+    const left = fs.readFileSync(path.join(root, leftRel, file));
+    const right = fs.readFileSync(path.join(root, rightRel, file));
+    return !left.equals(right);
+  });
+
+  if (changed.length) {
+    throw new Error(`${leftRel} and ${rightRel} differ: ${changed.join(', ')}`);
+  }
+
+  return `${leftFiles.length} files match`;
+}
+
 const expectedReferences = [
   'design-principles.md',
   'frontend-stack-guide.md',
@@ -54,6 +102,7 @@ const expectedReferences = [
   'anti-patterns.md',
   'qa-rubric.md',
   'mode-playbooks.md',
+  'codex-tool-workflows.md',
   'page-recipes.md',
   'examples.md'
 ];
@@ -123,6 +172,13 @@ check('skill front matter exists', () => {
   const text = fs.readFileSync(skillPath, 'utf8');
   if (!hasYamlFrontMatter(text)) throw new Error('SKILL.md missing YAML front matter with name and description');
   return 'skills/frontend-design-director/SKILL.md';
+});
+
+check('packaged skill matches root skill', () => {
+  return compareDirectoryContents(
+    'skills/frontend-design-director',
+    'plugins/frontend-design-director/skills/frontend-design-director'
+  );
 });
 
 check('expected reference files exist', () => {

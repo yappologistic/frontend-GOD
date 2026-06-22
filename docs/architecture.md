@@ -12,9 +12,13 @@ The root `.codex-plugin/plugin.json` mirrors the same metadata for repository-le
 
 The root `skills/frontend-design-director/` mirrors the same skill for manual skill-only installation and easier editing.
 
+Repository validation checks these two skill directories for identical file lists and file contents so the installable plugin cannot drift from the editable root skill.
+
 # References
 
 `skills/frontend-design-director/references/` keeps detailed guidance outside `SKILL.md` so the core skill remains operational and not bloated.
+
+`references/codex-tool-workflows.md` is the Codex-native workflow guide. It documents how this skill cooperates with in-app browser, Browser use, Chrome, Playwright-style automation, GitHub, Figma/product-design, data analytics, image generation, and dev-server workflows.
 
 # Audit Scripts
 
@@ -27,3 +31,5 @@ The root `skills/frontend-design-director/` mirrors the same skill for manual sk
 # Why Package As A Plugin
 
 Plugin packaging makes the skill easier to distribute publicly, version, document, validate, and install from GitHub while preserving direct skill-only installation for local workflows.
+
+This matches Codex's customization model: skills are the authoring format for reusable workflows, while plugins are the installable distribution unit that can bundle skills, app integrations, MCP configuration, and related assets.

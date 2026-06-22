@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add a Codex Workflow Router so the skill cooperates with built-in browser, Chrome, GitHub, Figma/product-design, data analytics, image generation, and companion frontend workflows.
+- Add `references/codex-tool-workflows.md` with Codex-native visual QA, dev-server, specialized workflow, and unavailable-tool fallback guidance.
+- Update docs to describe Codex-native workflow pairings and official Codex customization/plugin alignment.
 - Add no-ship quality gates and a mandatory visual revision loop to the frontend design skill.
 - Add scored QA pass criteria for visually important frontend work.
 - Expand bad-vs-better examples for dashboards, forms, settings, landing pages, pricing, data tables, and mobile layouts.

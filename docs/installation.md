@@ -57,3 +57,5 @@ or into a project-scoped skill folder:
 ```
 
 Plugin distribution is preferred for public reuse. Direct skill folders are useful for local authoring and repo-scoped workflows.
+
+Codex skills work across the CLI, IDE extension, and Codex app. Plugin installation is preferred when you want the skill to behave as a reusable Codex package and cooperate with other plugin-provided skills, apps, MCP servers, and browser workflows.

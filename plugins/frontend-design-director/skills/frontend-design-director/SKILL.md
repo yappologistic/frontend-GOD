@@ -45,6 +45,22 @@ First classify the task into one mode:
 
 After selecting the mode, read `references/mode-playbooks.md`.
 
+# Codex Workflow Router
+
+After selecting the mode, identify which Codex workflows, installed skills, plugins, MCP tools, browser surfaces, or app connectors are relevant. Use this skill as the frontend quality layer for product fit, UX, accessibility, responsive behavior, visual craft, and verification. When a more specific Codex workflow applies, defer its domain-specific decisions to that workflow and use this skill to keep the frontend outcome coherent.
+
+Read `references/codex-tool-workflows.md` when any built-in or plugin-provided Codex workflow may affect implementation or verification.
+
+Prefer these workflow pairings when available and relevant:
+
+- Use the Codex in-app browser, Browser use, Playwright, or Chrome/DevTools workflows for visual QA, screenshots, responsive checks, console/network inspection, and interaction verification.
+- Use shadcn/Radix-specific skills or tools when the project uses shadcn/ui or Radix primitives.
+- Use React, Next.js, Vite, Expo DOM, or frontend best-practice workflows for rendering boundaries, routing, bundle behavior, data fetching, and framework-specific implementation.
+- Use Figma or product-design workflows only when the user references a design file, asks for design generation, or asks to translate a design artifact into code.
+- Use GitHub workflows when addressing PR comments, CI failures, issues, reviews, or publishing changes.
+- Use data-analytics workflows for source-backed dashboards, reports, or analytical artifacts.
+- Use image generation only when a real visual asset is needed and no existing product asset fits.
+
 # Operating Principles
 
 Follow these principles:
@@ -120,9 +136,15 @@ For Next.js, prefer framework image/font/script optimizations when applicable. F
 
 ## 9. Visual Inspection Rule
 
-If browser, preview, screenshot, or Playwright tools are available, run the app, inspect the changed screen at mobile and desktop widths, look for spacing, hierarchy, overflow, contrast, broken states, and generic/default component styling, then fix obvious defects before final response.
+For runnable frontend surfaces, prefer verification in this order:
 
-If visual inspection is not available, state that the review was code-based only.
+1. Codex in-app browser, Browser use, Playwright, Chrome, or DevTools workflow when available.
+2. Local dev server plus screenshots or browser preview.
+3. Static code review only when no runnable surface or browser workflow is available.
+
+Use `references/codex-tool-workflows.md` for tool-specific QA steps. For visual work, check or capture desktop `1440x900`, laptop `1280x800`, tablet `768x1024`, mobile `390x844`, and small mobile `320x640` when feasible. Inspect spacing, hierarchy, overflow, contrast, broken states, focus behavior, interaction paths, and generic/default component styling, then fix obvious defects before final response.
+
+State clearly which verification level was used. If visual inspection is not available, state that the review was code-based only.
 
 ## 10. Mandatory Visual Revision Loop
 
@@ -141,6 +163,8 @@ If browser inspection is impossible, perform a code-based critique using the sam
 Run available lint, typecheck, tests, build, component/story checks, this skill's audit scripts, and browser/screenshot inspection when appropriate.
 
 If a command does not exist, do not invent it. Inspect `package.json` and use real scripts.
+
+For runnable apps, follow the dev-server protocol in `references/codex-tool-workflows.md`: inspect real scripts, start or reuse the appropriate server, avoid duplicate servers on occupied ports, inspect the changed route, and report the URL if a server is left running.
 
 Before finalizing any frontend UI, read `references/qa-rubric.md`.
 
@@ -206,6 +230,7 @@ Use these files when relevant:
 - `references/anti-patterns.md`: generic AI UI, UX, accessibility, responsive, and implementation traps.
 - `references/qa-rubric.md`: final frontend QA scoring and checks.
 - `references/mode-playbooks.md`: Build, Redesign, Review, Design-System, and Debug-UX workflows.
+- `references/codex-tool-workflows.md`: Codex-native browser, Chrome, Playwright, GitHub, Figma, data artifact, image generation, and dev-server workflows.
 - `references/page-recipes.md`: landing, dashboard, settings, pricing, checkout, auth, onboarding, data table, admin, and mobile recipes.
 - `references/examples.md`: weak vs strong examples that anchor taste.
 
@@ -228,6 +253,9 @@ When finishing frontend work, report:
 - accessibility, responsive, and performance checks performed
 - commands run and results
 - whether visual inspection was performed
+- built-in Codex workflow or plugin surface used, when relevant
+- inspected surface: browser, screenshot, PR, Figma, CI, artifact, or code-only
+- viewport/device coverage and interaction path tested, when visual
 - assumptions or follow-up improvements
 
 Keep the final response direct and useful.

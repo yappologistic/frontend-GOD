@@ -26,6 +26,8 @@ skills/frontend-design-director/references/
 
 Use references for checklists, page recipes, examples, accessibility guidance, and detailed playbooks. Avoid duplicating the same guidance in `SKILL.md` and references.
 
+Use `references/codex-tool-workflows.md` for Codex-native behavior involving browser verification, Chrome/DevTools, Playwright-style checks, GitHub, Figma/product-design, data analytics artifacts, image generation, dev-server handling, and unavailable-tool fallbacks. Keep `SKILL.md` limited to routing and mandatory gates, then put workflow detail in that reference.
+
 # Helper Scripts
 
 Skill-local audit scripts live in:
@@ -46,6 +48,10 @@ Run:
 npm run validate
 npm run check:scripts
 ```
+
+Validation checks that the expected references, including `codex-tool-workflows.md`, exist and that audit scripts parse.
+
+Validation also checks that the editable root skill mirrors the installable plugin package copy. After changing files under `skills/frontend-design-director/`, copy the same changes into `plugins/frontend-design-director/skills/frontend-design-director/` before releasing.
 
 # Testing In A Sample Frontend Repo
 

@@ -7,9 +7,10 @@ It is for developers, designers, product engineers, and teams that want Codex to
 ## What It Does
 
 - Guides Codex through build, redesign, review, design-system, and UX-debugging modes.
+- Routes frontend work through relevant Codex-native workflows such as Browser use, Chrome, Playwright-style browser automation, GitHub, Figma/product-design, data analytics, and image generation when those surfaces are available.
 - Pushes frontend work toward clear hierarchy, accessibility, responsive behavior, strong states, and maintainable implementation.
 - Avoids generic AI-template visuals such as vague SaaS copy, default gradients, identical cards, low-contrast text, and missing loading/empty/error states.
-- Adds no-ship gates, a mandatory visual revision loop, and a scored QA rubric for visually important frontend work.
+- Adds no-ship gates, a mandatory visual revision loop, Codex-aware visual QA workflow guidance, and a scored QA rubric for visually important frontend work.
 - Bundles practical reference playbooks and dependency-free audit scripts.
 
 ## Installation
@@ -117,6 +118,19 @@ npm run audit:tokens -- /path/to/frontend
 ```
 
 The audit scripts are heuristic review prompts, not proof of quality. The design audit flags common AI-UI slop such as vague CTA copy, repeated large-radius cards, heavy shadows, gradient overuse, missing focus-style signals, missing reduced-motion accommodations, viewport-height risks, muted text overuse, and repeated default containers.
+
+## Codex-Native Workflows
+
+The skill is designed to cooperate with Codex plugins and built-in workflows rather than replace them. It uses frontend-design judgment as the quality layer while deferring specialized concerns to the matching workflow:
+
+- In-app browser or Browser use for local unauthenticated previews, screenshots, interaction checks, and visual iteration.
+- Chrome workflows for signed-in browser state, extension-dependent pages, or Chrome/DevTools inspection.
+- GitHub workflows for PR comments, CI failures, issues, and publishing flow.
+- Figma and product-design workflows for design-file inspection, generation, and design-to-code handoff.
+- Data analytics workflows for source-backed dashboard/report artifacts.
+- Image generation when the frontend needs a real bitmap asset and no existing asset fits.
+
+The bundled `references/codex-tool-workflows.md` file documents these pairings, fallback behavior when a tool is unavailable, viewport targets, and dev-server verification protocol.
 
 ## Contributing
 
