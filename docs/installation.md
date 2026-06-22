@@ -32,9 +32,15 @@ Reinstall or replace an existing marketplace source:
 npx github:yappologistic/frontend-GOD --reinstall
 ```
 
+Troubleshoot local install state:
+
+```bash
+npx github:yappologistic/frontend-GOD --doctor
+```
+
 After the package is published to npm, `npx frontend-design-director` works as the shorter equivalent.
 
-If the marketplace is already registered, the installer updates the existing marketplace. Use `--reinstall` when you want to remove the old marketplace source and add this GitHub source again. Use `--skill-only --force` to replace an existing skill-only install. Restart Codex or start a new Codex thread if the plugin/skill does not appear immediately.
+If the marketplace is already registered, the installer updates the existing marketplace. Use `--reinstall` when you want to remove the old marketplace source and add this GitHub source again. Use `--doctor` to check whether the Codex CLI is available, whether the marketplace is registered, whether a skill-only copy exists, and which command to run next. Use `--skill-only --force` to replace an existing skill-only install. Restart Codex or start a new Codex thread if the plugin/skill does not appear immediately.
 
 # Option B: Install From GitHub Marketplace Source
 

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add `--doctor` to the npx installer for Codex CLI, marketplace, config, and skill-path diagnostics.
 - Make the npx installer rerunnable by updating existing marketplaces and adding a `--reinstall` path.
 - Add an `npx frontend-design-director` installer with marketplace and skill-only install paths.
 - Add mode-specific checklists and a `P0`-`P3` frontend review severity model.

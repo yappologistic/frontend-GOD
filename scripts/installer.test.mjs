@@ -42,6 +42,7 @@ const help = run(['--help']);
 assert.equal(help.status, 0, help.stderr);
 assert.match(help.stdout, /Usage:/);
 assert.match(help.stdout, /--skill-only/);
+assert.match(help.stdout, /--doctor/);
 
 const pluginDryRun = run(['--dry-run']);
 assert.equal(pluginDryRun.status, 0, pluginDryRun.stderr);
@@ -79,6 +80,21 @@ assert.equal(alreadyAdded.status, 0, alreadyAdded.stderr);
 assert.match(alreadyAdded.stdout, /already exists; updating existing marketplace/);
 assert.match(fs.readFileSync(fakeCodex.logPath, 'utf8'), /plugin marketplace add yappologistic\/frontend-GOD/);
 assert.match(fs.readFileSync(fakeCodex.logPath, 'utf8'), /plugin marketplace upgrade frontend-god/);
+
+const doctorHome = fs.mkdtempSync(path.join(os.tmpdir(), 'frontend-design-director-doctor-'));
+fs.mkdirSync(path.join(doctorHome, '.agents', 'skills', 'frontend-design-director'), { recursive: true });
+fs.writeFileSync(path.join(doctorHome, '.agents', 'skills', 'frontend-design-director', 'SKILL.md'), '---\nname: frontend-design-director\n---\n');
+fs.mkdirSync(path.join(doctorHome, '.codex'), { recursive: true });
+fs.writeFileSync(path.join(doctorHome, '.codex', 'config.toml'), '# test config\n');
+const doctor = run(['--doctor'], { ...fakeCodex.env, HOME: doctorHome, USERPROFILE: doctorHome });
+assert.equal(doctor.status, 0, doctor.stderr);
+assert.match(doctor.stdout, /Codex CLI: found/);
+assert.match(doctor.stdout, /Marketplace frontend-god: added/);
+assert.match(doctor.stdout, /Skill-only install: found/);
+assert.match(doctor.stdout, /\.codex[\\/]config\.toml/);
+assert.match(doctor.stdout, /Suggested next command:/);
+fs.rmSync(doctorHome, { recursive: true, force: true });
+
 fakeCodex.cleanup();
 fs.rmSync(fakeCodexScript, { force: true });
 
@@ -93,6 +109,14 @@ import process from 'node:process';
 
 const args = process.argv.slice(2);
 fs.appendFileSync(process.env.CODEX_FAKE_LOG, args.join(' ') + '\\n');
+if (args.join(' ') === '--version') {
+  console.log('codex 1.0.0-test');
+  process.exit(0);
+}
+if (args.join(' ') === 'plugin marketplace list') {
+  console.log('frontend-god  /tmp/frontend-GOD');
+  process.exit(0);
+}
 if (args.join(' ') === 'plugin marketplace add yappologistic/frontend-GOD') {
   console.error("Error: marketplace 'frontend-god' is already added from a different source; remove it before adding this source");
   process.exit(1);

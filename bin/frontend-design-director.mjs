@@ -22,6 +22,11 @@ function main() {
     return;
   }
 
+  if (options.doctor) {
+    runDoctor();
+    return;
+  }
+
   if (options.skillOnly) {
     installSkillOnly(options);
     return;
@@ -33,6 +38,7 @@ function main() {
 function parseArgs(rawArgs) {
   const options = {
     help: false,
+    doctor: false,
     dryRun: false,
     force: false,
     reinstall: false,
@@ -44,6 +50,7 @@ function parseArgs(rawArgs) {
     const arg = rawArgs[index];
     if (arg === 'install') continue;
     if (arg === '--help' || arg === '-h') options.help = true;
+    else if (arg === '--doctor') options.doctor = true;
     else if (arg === '--dry-run') options.dryRun = true;
     else if (arg === '--force') options.force = true;
     else if (arg === '--reinstall') options.reinstall = true;
@@ -69,13 +76,16 @@ Usage:
   npx github:yappologistic/frontend-GOD
   npx github:yappologistic/frontend-GOD --ref v0.1.1
   npx github:yappologistic/frontend-GOD --skill-only
+  npx github:yappologistic/frontend-GOD --doctor
 
 After npm package publishing, these also work:
   npx frontend-design-director
   npx frontend-design-director --ref v0.1.1
   npx frontend-design-director --skill-only
+  npx frontend-design-director --doctor
 
 Options:
+  --doctor        Check Codex CLI, marketplace, skill paths, and suggested next step.
   --ref <ref>     Pin the Codex marketplace source to a Git ref.
   --reinstall     Remove the existing marketplace entry before adding it again.
   --skill-only    Copy only the skill to ~/.agents/skills/frontend-design-director.
@@ -142,6 +152,80 @@ function installPluginMarketplace(options) {
 
   printCommandOutput(result);
   printRestartNote();
+}
+
+function runDoctor() {
+  const codexConfig = path.join(homeDir(), '.codex', 'config.toml');
+  const skillDestination = path.join(homeDir(), '.agents', 'skills', skillName);
+  const skillFile = path.join(skillDestination, 'SKILL.md');
+
+  console.log('Frontend Design Director doctor\n');
+  console.log(`Codex config path: ${codexConfig}`);
+  console.log(`User skill path: ${skillDestination}`);
+
+  const versionResult = runCodex(['--version']);
+  const codexFound = versionResult.status === 0;
+  console.log(`Codex CLI: ${codexFound ? `found (${firstLine(versionResult.stdout) || 'version available'})` : 'not found or not runnable'}`);
+
+  const marketplace = inspectMarketplace(codexFound);
+  console.log(`Marketplace ${marketplaceName}: ${marketplace.status}`);
+  if (marketplace.detail) console.log(`Marketplace detail: ${marketplace.detail}`);
+
+  console.log(`Skill-only install: ${fs.existsSync(skillFile) ? `found (${skillFile})` : 'not found'}`);
+  console.log(`Codex config: ${fs.existsSync(codexConfig) ? 'found' : 'not found'}`);
+
+  console.log('\nSuggested next command:');
+  console.log(suggestDoctorCommand({ codexFound, marketplace, skillFile }));
+}
+
+function inspectMarketplace(codexFound) {
+  if (!codexFound) {
+    return { status: 'unknown', detail: 'Codex CLI is unavailable.' };
+  }
+
+  const listResult = runCodex(['plugin', 'marketplace', 'list']);
+  if (listResult.status !== 0) {
+    return {
+      status: 'unknown',
+      detail: firstLine(listResult.stderr) || 'Could not list Codex marketplaces.'
+    };
+  }
+
+  const output = `${listResult.stdout}\n${listResult.stderr}`;
+  if (marketplaceIsListed(output)) {
+    return { status: 'added', detail: firstMatchingLine(output, marketplaceName) || firstMatchingLine(output, 'frontend-GOD') };
+  }
+
+  return { status: 'not added', detail: 'No frontend-god marketplace entry was found.' };
+}
+
+function suggestDoctorCommand({ codexFound, marketplace, skillFile }) {
+  if (!codexFound) {
+    return 'Install Codex CLI, or run: npx github:yappologistic/frontend-GOD --skill-only';
+  }
+
+  if (marketplace.status === 'added') {
+    return 'npx github:yappologistic/frontend-GOD';
+  }
+
+  if (fs.existsSync(skillFile)) {
+    return 'npx github:yappologistic/frontend-GOD --skill-only --force';
+  }
+
+  return 'npx github:yappologistic/frontend-GOD';
+}
+
+function marketplaceIsListed(output) {
+  return /frontend-god|frontend-GOD|yappologistic\/frontend-GOD|frontend-design-director/i.test(output);
+}
+
+function firstMatchingLine(output, pattern) {
+  const regex = typeof pattern === 'string' ? new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') : pattern;
+  return output.split(/\r?\n/).find((line) => regex.test(line))?.trim() || '';
+}
+
+function firstLine(text = '') {
+  return text.split(/\r?\n/).find((line) => line.trim())?.trim() || '';
 }
 
 function runCodex(commandArgs) {
